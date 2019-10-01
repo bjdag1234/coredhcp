@@ -25,8 +25,8 @@ func main() {
 	if err != nil {
 		logger.Fatal(err)
 	}
-	srv := server.NewServer(config)
-	if err := srv.Start(); err != nil {
+	srv, err := server.Start(config)
+	if err != nil {
 		logger.Fatal(err)
 	}
 	if err := srv.Wait(); err != nil {
