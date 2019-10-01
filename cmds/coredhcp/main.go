@@ -7,9 +7,10 @@ package main
 import (
 	"time"
 
-	"github.com/coredhcp/coredhcp"
 	"github.com/coredhcp/coredhcp/config"
 	"github.com/coredhcp/coredhcp/logger"
+	"github.com/coredhcp/coredhcp/server"
+
 	_ "github.com/coredhcp/coredhcp/plugins/dns"
 	_ "github.com/coredhcp/coredhcp/plugins/file"
 	_ "github.com/coredhcp/coredhcp/plugins/netmask"
@@ -24,11 +25,11 @@ func main() {
 	if err != nil {
 		logger.Fatal(err)
 	}
-	server := coredhcp.NewServer(config)
-	if err := server.Start(); err != nil {
+	srv := server.NewServer(config)
+	if err := srv.Start(); err != nil {
 		logger.Fatal(err)
 	}
-	if err := server.Wait(); err != nil {
+	if err := srv.Wait(); err != nil {
 		logger.Print(err)
 	}
 	time.Sleep(time.Second)
